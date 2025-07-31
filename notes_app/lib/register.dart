@@ -11,6 +11,10 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Register Page'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(

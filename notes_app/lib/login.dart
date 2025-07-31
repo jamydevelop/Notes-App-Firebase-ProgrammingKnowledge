@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/home.dart';
 import 'package:notes_app/register.dart';
 
 class LoginPage extends StatelessWidget {
@@ -10,6 +12,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Page'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(
@@ -44,16 +50,31 @@ class LoginPage extends StatelessWidget {
                       )
                   );
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text('Register Success!'))
-                  );
+
+                  try {
+                    FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass)
+                        .then((value){
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('Login Success!'))
+                      );
+
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
+
+                    });
+                  } catch (err) {
+                    print(err);
+                  }
+
                 }
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
               child: Text(
-                'Register',
+                'Login',
                 style: TextStyle(color: Colors.white),
               ),
             ),
