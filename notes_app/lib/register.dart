@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/login.dart';
 
@@ -32,11 +33,11 @@ class RegisterPage extends StatelessWidget {
             ),
             SizedBox(height: 25),
             ElevatedButton(
-                onPressed: () {
-                  String email = emailController.text.trim();
+                onPressed: () async {
+                  String mail = emailController.text.trim();
                   String pass = passwordController.text.trim();
 
-                  if(email.isEmpty || pass.isEmpty) {
+                  if(mail.isEmpty || pass.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                             backgroundColor: Colors.red,
@@ -44,13 +45,31 @@ class RegisterPage extends StatelessWidget {
                         )
                     );
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.green,
-                            content: Text('Register Success!'))
-                    );
+
+                    try {
+                      //FIREBASE AUTH
+                      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: mail, password: pass)
+                          .then((value){
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                backgroundColor: Colors.green,
+                                content: Text('Register Successfully!')));
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage())
+                        );
+
+                      });
+                    } catch (err) {
+                      print(err);
+                    }
+                    emailController.text = "";
+                    passwordController.text = "";
                   }
-                },
+                }, //onPress; ()
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
                 child: Text(
                     'Register',
