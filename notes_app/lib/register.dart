@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/login.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
@@ -31,7 +32,25 @@ class RegisterPage extends StatelessWidget {
             ),
             SizedBox(height: 25),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  String email = emailController.text.trim();
+                  String pass = passwordController.text.trim();
+
+                  if(email.isEmpty || pass.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text('Enter all fields required')
+                        )
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                            content: Text('Register Success!'))
+                    );
+                  }
+                },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
                 child: Text(
                     'Register',
@@ -44,7 +63,7 @@ class RegisterPage extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => RegisterPage())
+                        builder: (context) => LoginPage())
                 );
               },
               child: Text(
