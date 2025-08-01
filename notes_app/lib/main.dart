@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/firebase_options.dart';
 import 'package:notes_app/register.dart';
 
+import 'PhoneNumber.dart';
+
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Notes App',
-      home: RegisterPage(),
+      home: PhoneNumber(),
     );
   }
 }
