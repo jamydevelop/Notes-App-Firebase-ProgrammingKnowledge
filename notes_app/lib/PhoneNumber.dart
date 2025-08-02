@@ -46,7 +46,7 @@ class PhoneNumber extends StatelessWidget {
 
                   //Send OTP to the number
                   await FirebaseAuth.instance.verifyPhoneNumber(
-                        verificationCompleted: (creadential){},
+                        verificationCompleted: (authCred){},
                         verificationFailed: (error){},
                         codeSent: (otp,token){
 
@@ -56,7 +56,7 @@ class PhoneNumber extends StatelessWidget {
 
                           );
                         },
-                        codeAutoRetrievalTimeout: (otp){} ,phoneNumber: number);
+                        codeAutoRetrievalTimeout: (otp){} ,phoneNumber: "+63$number");
                 }
               },
               style: ElevatedButton.styleFrom(

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/home.dart';
 
 class OtpScreen extends StatefulWidget {
   String otp;
@@ -32,11 +34,11 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             SizedBox(height: 25),
             ElevatedButton(
-              onPressed: () {
-                String email = otpController.text.trim();
+              onPressed: () async {
+                String userOtp = otpController.text.trim();
 
 
-                if(email.isEmpty) {
+                if(userOtp.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                           backgroundColor: Colors.red,
@@ -45,24 +47,17 @@ class _OtpScreenState extends State<OtpScreen> {
                   );
                 } else {
 
-                  // try {
-                  //   FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass)
-                  //       .then((value){
-                  //
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //         SnackBar(
-                  //             backgroundColor: Colors.green,
-                  //             content: Text('Login Success!'))
-                  //     );
-                  //
-                  //     Navigator.pushReplacement(
-                  //         context,
-                  //         MaterialPageRoute(builder: (context) => HomePage()));
-                  //
-                  //   });
-                  // } catch (err) {
-                  //   print(err);
-                  // }
+                  PhoneAuthCredential credential = PhoneAuthProvider
+                      .credential(
+                      verificationId: widget.otp,
+                      smsCode: userOtp);
+
+                  await FirebaseAuth.instance.signInWithCredential(credential)
+                      .then((value){
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  });
+
 
                 }
               },
