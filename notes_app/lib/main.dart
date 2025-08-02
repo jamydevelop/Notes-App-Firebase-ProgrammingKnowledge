@@ -4,6 +4,7 @@ import 'package:notes_app/firebase_options.dart';
 import 'package:notes_app/register.dart';
 
 import 'PhoneNumber.dart';
+import 'home.dart';
 
 void main() async {
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Notes App',
-      home: PhoneNumber(),
+      home: HomePage(),
     );
   }
 }

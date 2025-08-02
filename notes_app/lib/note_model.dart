@@ -1,8 +1,8 @@
 class Note {
-  String? title;
-  String? desc;
+  String title;
+  String desc;
 
-  Note({this.title, this.desc});
+  Note({required this.title,required this.desc});
 
   static Map<String, dynamic> toMap(Note note) {
     return {
